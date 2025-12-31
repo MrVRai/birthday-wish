@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manya | Chapter 2025</title>
+    <style>
+        /* Importing fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&family=Courier+Prime&display=swap');
+
+        :root {
+            --bg-color: #050505;
+            --accent-gold: #c5a059;
+            --text-muted: #a0a0a0;
+            --text-white: #e0e0e0;
+            --glass: rgba(255, 255, 255, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-white);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--accent-gold); }
+        h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 20px; }
+        h2 { font-size: 2rem; margin-bottom: 30px; text-align: center; }
+        p { line-height: 1.8; color: var(--text-muted); font-size: 1rem; }
+
+        /* --- UTILS --- */
+        .hidden { display: none !important; }
+        .container { width: 90%; max-width: 800px; margin: 0 auto; padding: 50px 0; }
+        .full-screen { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- LOGIN SCREEN --- */
+        #login-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: #000; z-index: 100;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.8s ease;
+        }
+
+        input[type="password"] {
+            background: transparent; border: none; border-bottom: 1px solid var(--accent-gold);
+            color: white; font-size: 1.5rem; text-align: center; padding: 10px;
+            outline: none; margin-top: 20px; font-family: 'Playfair Display', serif;
+            width: 80%; max-width: 300px;
+        }
+        
+        .error-msg { color: #cf4545; margin-top: 15px; opacity: 0; transition: 0.3s; }
+
+        /* --- INTRO SEQUENCE SCREEN --- */
+        #intro-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: #000; z-index: 90;
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Courier Prime', monospace;
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+            text-align: center;
+            transition: opacity 2.5s ease-in-out; 
+        }
+        .intro-text { opacity: 0; transition: opacity 0.5s; }
+
+        /* --- MAIN CONTENT TRANSITION --- */
+        #main-content { opacity: 0; transition: opacity 2s ease-in; }
+        #main-content.visible { opacity: 1; }
+
+        /* --- LANDING HERO (PAGE 1) --- */
+        .landing-hero h1 { animation: textGlow 3s infinite alternate; }
+        .scroll-indicator {
+            position: absolute; bottom: 40px;
+            font-size: 2rem; color: var(--accent-gold);
+            animation: bounce 2s infinite;
+            opacity: 0.7;
+        }
+        @keyframes textGlow {
+            from { text-shadow: 0 0 10px rgba(197, 160, 89, 0.2); }
+            to { text-shadow: 0 0 20px rgba(197, 160, 89, 0.6); }
+        }
+
+        /* --- CARD STACK SECTION --- */
+        .stack-area {
+            position: relative; width: 300px; height: 400px; margin-top: 40px;
+            perspective: 1000px; margin-left: auto; margin-right: auto;
+        }
+        .card-item {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(30,30,30,0.95), rgba(10,10,10,0.95));
+            border: 1px solid var(--accent-gold); border-radius: 15px; padding: 30px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.6s ease, opacity 0.6s ease;
+            cursor: pointer; transform-origin: center bottom;
+        }
+        .card-item h3 { font-size: 1.5rem; margin-bottom: 15px; }
+        .card-item p { color: #ccc; font-size: 1rem; line-height: 1.6; }
+        .tap-hint { font-size: 0.7rem; color: #555; margin-top: 20px; text-transform: uppercase; letter-spacing: 2px; }
+
+        .card-item:nth-child(1) { transform: rotate(-3deg); z-index: 5; }
+        .card-item:nth-child(2) { transform: rotate(2deg); z-index: 4; }
+        .card-item:nth-child(3) { transform: rotate(-1deg); z-index: 3; }
+        .card-item:nth-child(4) { transform: rotate(1deg); z-index: 2; }
+        .card-item:nth-child(5) { transform: rotate(0deg); z-index: 1; border-color: #fff; background: #222; }
+        .fly-out { transform: translate(200px, -100px) rotate(45deg) !important; opacity: 0 !important; pointer-events: none; }
+
+        /* --- TYPEWRITER (Courier Prime Font) --- */
+        .letter-container {
+            background: rgba(255, 255, 255, 0.03); 
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            padding: 40px; 
+            border-radius: 10px; 
+            font-family: 'Courier Prime', monospace; 
+            font-size: 1.1rem;
+            line-height: 1.8; 
+            min-height: 200px; 
+            text-align: left; 
+            margin-top: 50px;
+        }
+        .cursor { display: inline-block; width: 2px; height: 1.2em; background-color: var(--accent-gold); animation: blink 0.7s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* --- PHOTO & CAKE --- */
+        .photo-section { padding: 80px 0; text-align: center; }
+        .frame {
+            position: relative; width: 280px; height: 380px;
+            border: 1px solid var(--accent-gold); padding: 15px;
+            margin: 0 auto 30px auto; transform: rotate(-3deg); transition: 0.5s;
+        }
+        .frame:hover { transform: rotate(0deg); }
+        .frame img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%); }
+
+        .cake-container { font-size: 5rem; cursor: pointer; transition: 0.3s; margin: 40px 0; }
+        .cake-container:hover { transform: scale(1.1); }
+        .candles-off { filter: grayscale(100%) brightness(50%); }
+        .candles-on { filter: none; text-shadow: 0 0 20px orange; }
+        .btn-wish {
+            padding: 15px 40px; background: transparent; border: 1px solid var(--accent-gold);
+            color: var(--accent-gold); letter-spacing: 2px; cursor: pointer; text-transform: uppercase;
+            margin-top: 20px; transition: 0.3s;
+        }
+        .btn-wish:hover { background: var(--accent-gold); color: #000; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
+        
+        #confetti-canvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 999; }
+        @media (max-width: 600px) { h1 { font-size: 3rem; } }
+    </style>
+</head>
+<body>
+
+    <div id="login-screen">
+        <h2 style="font-size: 1rem; letter-spacing: 4px; margin-bottom: 20px;">RESTRICTED ACCESS</h2>
+        <div style="font-size: 3rem; margin-bottom: 20px; color: #c5a059;">🔒</div>
+        <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Hint: The bad word you use for me</p>
+        <input type="password" id="password-input">
+        <div class="error-msg" id="error-msg">ACCESS DENIED</div>
+    </div>
+
+    <div id="intro-screen" class="hidden">
+        <div id="intro-text" class="intro-text"></div>
+    </div>
+
+    <div id="main-content" class="hidden">
+        
+        <section class="landing-hero full-screen reveal">
+            <p style="letter-spacing: 3px; margin-bottom: 20px; color: #c5a059;">WELCOME TO JANUARY 1ST</p>
+            <h1>Happy Birthday<br><span style="font-style: italic;">Manya</span></h1>
+            <p style="max-width: 600px;">Another year older. Another year of being iconic.</p>
+            
+            <div class="scroll-indicator">↓</div>
+        </section>
+
+        <section class="container reveal" style="padding-top: 80px;">
+            <h2 style="font-size: 1.5rem; text-align: center;">Wait, I have a few things to say...</h2>
+            <p style="text-align: center; margin-bottom: 20px;">(Tap the cards to read)</p>
+
+            <div class="stack-area" id="stack-area">
+                <div class="card-item" onclick="flyAway(this)">
+                    <div style="font-size: 2.5rem; margin-bottom: 10px;">💔</div>
+                    <h3>Big Regret</h3>
+                    <p>I would have considered myself truly lucky to have you... IF you managed to make Shailly my GF! You failed me there.</p>
+                    <div class="tap-hint">(Tap to discard)</div>
+                </div>
+                <div class="card-item" onclick="flyAway(this)">
+                    <div style="font-size: 2.5rem; margin-bottom: 10px;">🫣</div>
+                    <h3>Honest Fact</h3>
+                    <p>To be honest, I am still afraid of going to <em>ekant</em> with you because of your <em>besharmi</em>. That is just a fact!</p>
+                    <div class="tap-hint">(Tap to discard)</div>
+                </div>
+                <div class="card-item" onclick="flyAway(this)">
+                    <div style="font-size: 2.5rem; margin-bottom: 10px;">🧠</div>
+                    <h3>My Wish</h3>
+                    <p>Chal, I wish that this year you take decisions more sincerely... obviously under my expert guidance.</p>
+                    <div class="tap-hint">(Tap to discard)</div>
+                </div>
+                <div class="card-item" onclick="flyAway(this)">
+                    <div style="font-size: 2.5rem; margin-bottom: 10px;">💍</div>
+                    <h3>My Promise</h3>
+                    <p>I promise to always be with you... until you find a husband who is as good "husband material" as me.</p>
+                    <div class="tap-hint">(Tap to discard)</div>
+                </div>
+                <div class="card-item" onclick="scrollToLetter()">
+                    <div style="font-size: 3rem; animation: bounce 2s infinite;">⬇️</div>
+                    <h3 style="margin-top: 10px;">One Last Thing...</h3>
+                    <p>I wrote something special for you below.</p>
+                    <div class="tap-hint">(Tap to Scroll Down)</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container reveal" id="letter-section" style="padding-top: 100px;">
+            <h2 style="font-size: 1.5rem; text-align: center;">A Note for You</h2>
+            <div class="letter-container">
+                <span id="typewriter-text"></span><span class="cursor"></span>
+            </div>
+        </section>
+
+        <section class="photo-section container reveal">
+            <div class="frame">
+                <img src="assets/manya.png" alt="Manya">
+            </div>
+            <div class="center-text">
+                <h2>The One & Only</h2>
+                <p style="max-width: 600px; margin: 0 auto;">
+                    To the Masterchef and the Ultimate Trip Planner. You save every plan from turning messy or getting cancelled... now I'm just waiting for the day you finally make <em>our</em> trip happen!
+                </p>
+            </div>
+        </section>
+
+        <section class="container reveal" style="text-align: center; padding-bottom: 100px;">
+            <h2>Make a Wish</h2>
+            <p id="cake-instruction">Tap the cake to light the candles</p>
+            <div class="cake-container candles-off" id="cake" onclick="lightCandles()">🎂</div>
+            <div id="wish-button-container" style="opacity: 0; transition: opacity 1s;">
+                <button class="btn-wish" onclick="celebrate()">Blow Candles</button>
+            </div>
+        </section>
+
+        <footer style="text-align: center; padding: 20px; font-size: 0.7rem; color: #444;">DESIGNED FOR MANYA | 2026</footer>
+    </div>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <script>
+        // --- CONFIG ---
+        const PASSCODE = "fuckoff";
+        const LETTER_TEXT = "I wanted to give you a small nickname — Superstar.\n\nBecause of your attitude, your consistency, your dedication… the way you keep going even after facing so much. You still stand strong, and that strength is something rare, something that i admire. This title came straight from the bottom of my heart. \n\nHappy Birthday, Superstar.";
+        
+        const INTRO_MESSAGES = [
+            "Access Granted.",
+            "Analyzing User Data...",
+            "Warning: High levels of Attitude detected ⚠️",
+            "Checking Besharmi Level... 100%",
+            "Initializing Birthday Sequence..."
+        ];
+
+        // --- STATE MANAGEMENT ---
+        let typewriterStarted = false;
+
+        // --- STACK ANIMATION ---
+        function flyAway(card) {
+            if(card.classList.contains('fly-out')) return; 
+            card.classList.add('fly-out');
+        }
+
+        function scrollToLetter() {
+            const letterSection = document.getElementById('letter-section');
+            letterSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- UNLOCK LOGIC ---
+        const passInput = document.getElementById('password-input');
+        const loginScreen = document.getElementById('login-screen');
+        const introScreen = document.getElementById('intro-screen');
+        const introText = document.getElementById('intro-text');
+        const mainContent = document.getElementById('main-content');
+        const errorMsg = document.getElementById('error-msg');
+
+        passInput.addEventListener('input', (e) => {
+            if(e.target.value.toLowerCase() === PASSCODE) {
+                passInput.blur();
+                loginScreen.style.opacity = 0;
+                setTimeout(() => {
+                    loginScreen.style.display = 'none';
+                    introScreen.classList.remove('hidden');
+                    playIntroSequence(); 
+                }, 800);
+            } else if (e.target.value.length > PASSCODE.length) {
+                errorMsg.style.opacity = 1;
+                setTimeout(() => { e.target.value = ''; errorMsg.style.opacity = 0; }, 1000);
+            }
+        });
+
+        // --- INTRO SEQUENCE ENGINE ---
+        function playIntroSequence() {
+            let step = 0;
+            function nextStep() {
+                if(step < INTRO_MESSAGES.length) {
+                    introText.innerText = INTRO_MESSAGES[step];
+                    introText.style.opacity = 1;
+                    setTimeout(() => {
+                        introText.style.opacity = 0;
+                        setTimeout(() => { step++; nextStep(); }, 500);
+                    }, 2000);
+                } else {
+                    mainContent.classList.remove('hidden');
+                    introScreen.style.opacity = 0;
+                    mainContent.classList.add('visible');
+                    
+                    // Delay confetti slightly so it matches text fade-in
+                    setTimeout(() => {
+                        triggerCornerConfetti();
+                    }, 800);
+
+                    setTimeout(() => { introScreen.style.display = 'none'; initScroll(); }, 2500);
+                }
+            }
+            nextStep();
+        }
+
+        // --- SCROLL & TYPEWRITER TRIGGER ---
+        function initScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            const letterSection = document.getElementById('letter-section');
+            reveals[0].classList.add('active');
+            window.addEventListener('scroll', () => {
+                const trigger = window.innerHeight / 1.3;
+                reveals.forEach(reveal => {
+                    if(reveal.getBoundingClientRect().top < trigger) reveal.classList.add('active');
+                });
+                if (!typewriterStarted && letterSection.getBoundingClientRect().top < trigger) {
+                    typewriterStarted = true;
+                    startTypewriter();
+                }
+            });
+        }
+
+        // --- TYPEWRITER ENGINE ---
+        let charIndex = 0;
+        function startTypewriter() {
+            const target = document.getElementById('typewriter-text');
+            const speed = 40; 
+            function type() {
+                if (charIndex < LETTER_TEXT.length) {
+                    if (LETTER_TEXT.charAt(charIndex) === '\n') { target.innerHTML += '<br>'; }
+                    else { target.innerHTML += LETTER_TEXT.charAt(charIndex); }
+                    charIndex++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // --- CAKE & RAIN ---
+        let lit = false;
+        function lightCandles() {
+            if(lit) return;
+            document.getElementById('cake').className = "cake-container candles-on";
+            document.getElementById('cake-instruction').innerText = "Now make a wish...";
+            document.getElementById('wish-button-container').style.opacity = 1;
+            lit = true;
+        }
+        function celebrate() {
+            if(!lit) return;
+            document.querySelector('.btn-wish').innerText = "Wish Granted ✨";
+            for(let i=0; i<50; i++) particles.push(createParticle('burst')); 
+            startRain(); 
+        }
+
+        // --- CANVAS ENGINE (DISTINCT CONFETTI STYLES) ---
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particles = [];
+        
+        // Colors for Intro (Gold/White - Premium)
+        const goldColors = ['#c5a059', '#e0e0e0', '#ffffff'];
+        // Colors for Candle (Multi-color - Party)
+        const partyColors = ['#c5a059', '#fff', '#ffd700', '#ff4d4d', '#33cc33', '#3399ff'];
+
+        function triggerCornerConfetti() {
+            const duration = 5000; 
+            const end = Date.now() + duration;
+            (function frame() {
+                for(let i=0; i<3; i++) { 
+                    // Intro uses RECTANGLES and GOLD colors
+                    particles.push(createParticle('left', 'rect'));
+                    particles.push(createParticle('right', 'rect'));
+                }
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+            animate();
+        }
+
+        function createParticle(type, shape = 'circle') {
+            let x, y, speedX, speedY, colorSet;
+            
+            // Set Color Palette based on shape/type
+            if (shape === 'rect') colorSet = goldColors;
+            else colorSet = partyColors;
+
+            // Positioning Logic
+            if (type === 'left') {
+                x = 0; y = canvas.height;
+                speedX = Math.random() * 5 + 2; 
+                speedY = -(Math.random() * 10 + 5); 
+            } else if (type === 'right') {
+                x = canvas.width; y = canvas.height;
+                speedX = -(Math.random() * 5 + 2); 
+                speedY = -(Math.random() * 10 + 5); 
+            } else if (type === 'burst') {
+                x = canvas.width / 2; y = canvas.height / 2;
+                speedX = Math.random() * 10 - 5; speedY = Math.random() * 10 - 5;
+            } else { // rain
+                x = Math.random() * canvas.width; y = -10;
+                speedX = Math.random() * 4 - 2; speedY = Math.random() * 3 + 2;
+            }
+
+            return {
+                x: x, y: y,
+                shape: shape, // 'rect' or 'circle'
+                w: Math.random() * 8 + 4, // for rect
+                h: Math.random() * 5 + 2, // for rect
+                size: Math.random() * 6 + 2, // for circle
+                speedX: speedX, speedY: speedY,
+                color: colorSet[Math.floor(Math.random() * colorSet.length)],
+                tilt: Math.random() * 10,
+                tiltAngleIncrement: Math.random() * 0.1 + 0.05,
+                tiltAngle: 0
+            };
+        }
+
+        function startRain() { 
+            // Rain uses CIRCLES and PARTY colors
+            setInterval(() => { particles.push(createParticle('rain', 'circle')); }, 50); 
+            animate(); 
+        }
+
+        function animate() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            for(let i=0; i<particles.length; i++) {
+                let p = particles[i];
+                
+                // Physics
+                p.x += p.speedX;
+                p.y += p.speedY;
+                p.speedY += 0.1; // Standard Gravity (Not floating, just falling nicely)
+                p.speedX *= 0.99; // Drag
+
+                ctx.fillStyle = p.color;
+
+                if (p.shape === 'rect') {
+                    // Spinning Rectangles (Intro)
+                    p.tiltAngle += p.tiltAngleIncrement;
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.tiltAngle);
+                    ctx.fillRect(0, 0, p.w, p.h);
+                    ctx.restore();
+                } else {
+                    // Simple Circles (Candle)
+                    ctx.beginPath(); 
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); 
+                    ctx.fill();
+                }
+
+                if(p.y > canvas.height + 10) { particles.splice(i, 1); i--; }
+            }
+            if(particles.length > 0) requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
